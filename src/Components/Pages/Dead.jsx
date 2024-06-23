@@ -1,60 +1,68 @@
-import { useEffect, useState } from "react"
-import axios from "axios"
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Dead() {
-  const [data, setData] = useState([])
-  const [modal, setModal] = useState(false)
-  const [infoModal, setInfoModal] = useState(false)
-  const [changeId, setChangesId] = useState(null)
-  const [textArea, setTextArea] = useState("")
+  const [data, setData] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [infoModal, setInfoModal] = useState(false);
+  const [changeId, setChangesId] = useState(null);
+  const [textArea, setTextArea] = useState('');
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
+
   const handleChange = (e) => {
-    const { value } = e.target
-    setTextArea(value)
-  }
+    const { value } = e.target;
+    setTextArea(value);
+  };
+
+  const handleSearchChange = (e) => {
+    const { value } = e.target;
+    setSearchText(value);
+  };
+
   const openModal = (id) => {
-    setModal(true)
-    setChangesId(id)
-  }
+    setModal(true);
+    setChangesId(id);
+  };
 
   const fetchData = () => {
     axios
-      .get("http://127.0.0.1:5000/cards/getAll")
+      .get('http://127.0.0.1:5000/cards/getAll')
       .then((response) => {
-        let filtredData = response.data.filter((row) => row.status === "dead")
-        setData(filtredData)
-        console.log(filtredData)
+        let filtredData = response.data.filter((row) => row.status === 'dead');
+        setData(filtredData);
+        console.log(filtredData);
       })
       .catch((error) => {
-        console.error("There was an error fetching the data!", error)
-      })
-  }
+        console.error('There was an error fetching the data!', error);
+      });
+  };
 
   const hendleStatus = (status) => {
-    setModal(false)
+    setModal(false);
     axios
       .put(`http://127.0.0.1:5000/cards/changeStatus/${changeId}`, {
         status: status,
       })
       .then(() => {
-        fetchData()
+        fetchData();
       })
       .catch((error) => {
-        console.error("Error updating data:", error)
-      })
-  }
+        console.error('Error updating data:', error);
+      });
+  };
 
   const hendleDelete = (id) => {
     axios
       .delete(`http://127.0.0.1:5000/cards/delete/${id}`)
       .then(() => fetchData())
       .catch((error) => {
-        console.error("Error deleting data:", error)
-      })
-  }
+        console.error('Error deleting data:', error);
+      });
+  };
 
   const updateCardInfo = () => {
     axios
@@ -62,16 +70,29 @@ function Dead() {
         info: textArea,
       })
       .then(() => {
-        fetchData()
+        fetchData();
       })
       .catch((error) => {
-        console.error("There was an error fetching the data!", error)
-      })
-  }
+        console.error('There was an error fetching the data!', error);
+      });
+  };
 
   function addSpacesEveryFourChars(input) {
-    return input.replace(/(.{4})/g, "$1 ")
+    return input.replace(/(.{4})/g, '$1 ');
   }
+
+  const filteredData = data.filter((row) => {
+    const searchString = searchText.toLowerCase();
+    return (
+      row.id.toString().includes(searchString) ||
+      row.number.toLowerCase().includes(searchString) ||
+      row.owner.toLowerCase().includes(searchString) ||
+      row.broughter.toLowerCase().includes(searchString) ||
+      row.phone.toLowerCase().includes(searchString) ||
+      row.buy_time.toLowerCase().includes(searchString) ||
+      row.info.toLowerCase().includes(searchString)
+    );
+  });
 
   return (
     <div className="wrapper">
@@ -80,25 +101,25 @@ function Dead() {
           <div className="modal__wrapper">
             <div
               className="modal__elem grev"
-              onClick={() => hendleStatus("grev")}
+              onClick={() => hendleStatus('grev')}
             >
               grev
             </div>
             <div
               className="modal__elem work"
-              onClick={() => hendleStatus("work")}
+              onClick={() => hendleStatus('work')}
             >
               work
             </div>
             <div
               className="modal__elem block"
-              onClick={() => hendleStatus("block")}
+              onClick={() => hendleStatus('block')}
             >
               block
             </div>
             <div
               className="modal__elem dead"
-              onClick={() => hendleStatus("dead")}
+              onClick={() => hendleStatus('dead')}
             >
               dead
             </div>
@@ -112,7 +133,7 @@ function Dead() {
             <div
               className="closeModal"
               onClick={() => {
-                setInfoModal(false)
+                setInfoModal(false);
               }}
             >
               X
@@ -126,8 +147,8 @@ function Dead() {
             <button
               className="changeInfoButton"
               onClick={() => {
-                updateCardInfo()
-                setInfoModal(false)
+                updateCardInfo();
+                setInfoModal(false);
               }}
             >
               Обновить информацию
@@ -136,9 +157,16 @@ function Dead() {
         </div>
       )}
 
-      <h1>Мертвых карт: {data.length}</h1>
+      <h1>Мертвых карт: {filteredData.length}</h1>
+      <input
+        type="text"
+        placeholder="Поиск..."
+        value={searchText}
+        onChange={handleSearchChange}
+        className="search-input"
+      />
       <div className="card__wrapper">
-        {data.map((row) => (
+        {filteredData.map((row) => (
           <div key={row.id} className="card">
             <div className="card__header">
               <div className="card__id">
@@ -173,10 +201,10 @@ function Dead() {
             </div>
             <div>
               <div className="card__buttons">
-                <div className={"card__status "}>
+                <div className={'card__status '}>
                   <button
                     onClick={() => {
-                      openModal(row.id)
+                      openModal(row.id);
                     }}
                     className={row.status}
                   >
@@ -186,7 +214,7 @@ function Dead() {
                 <div className="card__delete">
                   <button
                     onClick={() => {
-                      hendleDelete(row.id)
+                      hendleDelete(row.id);
                     }}
                   >
                     Удалить карту
@@ -196,8 +224,8 @@ function Dead() {
               <div className="card__info">
                 <button
                   onClick={() => {
-                    setInfoModal(true)
-                    setChangesId(row.id)
+                    setInfoModal(true);
+                    setChangesId(row.id);
                   }}
                 >
                   Изменить информацию
@@ -208,7 +236,7 @@ function Dead() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default Dead
+export default Dead;

@@ -33,8 +33,6 @@ body {
   color: #66afe9;
 }
 
-/* Стили для активного элемента меню */
 .header__elem a.active {
-  font-weight: bold;
-  color: #4CAF50;
+  color: #66afe9;
 }

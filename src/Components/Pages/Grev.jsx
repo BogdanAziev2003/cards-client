@@ -1,17 +1,23 @@
-import { useEffect, useState } from "react"
-import axios from "axios"
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Grev() {
-  const [data, setData] = useState([])
-  const [modal, setModal] = useState(false)
-  const [infoModal, setInfoModal] = useState(false)
-  const [changeId, setChangesId] = useState(null)
-  const [textArea, setTextArea] = useState("")
+  const [data, setData] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [infoModal, setInfoModal] = useState(false);
+  const [changeId, setChangesId] = useState(null);
+  const [textArea, setTextArea] = useState('');
+  const [searchText, setSearchText] = useState('');
 
   const handleChange = (e) => {
-    const { value } = e.target
-    setTextArea(value)
-  }
+    const { value } = e.target;
+    setTextArea(value);
+  };
+
+  const handleSearchChange = (e) => {
+    const { value } = e.target;
+    setSearchText(value);
+  };
 
   const updateCardInfo = () => {
     axios
@@ -19,90 +25,97 @@ function Grev() {
         info: textArea,
       })
       .then(() => {
-        fetchData()
+        fetchData();
       })
       .catch((error) => {
-        console.error("There was an error fetching the data!", error)
-      })
-  }
+        console.error('There was an error fetching the data!', error);
+      });
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   const openModal = (id) => {
-    setModal(true)
-    setChangesId(id)
-  }
+    setModal(true);
+    setChangesId(id);
+  };
 
   const fetchData = () => {
     axios
-      .get("http://127.0.0.1:5000/cards/getAll")
+      .get('http://127.0.0.1:5000/cards/getAll')
       .then((response) => {
-        let filtredData = response.data.filter((row) => row.status === 'grev')
-        setData(filtredData)
-        console.log(filtredData);
+        let filteredData = response.data.filter((row) => row.status === 'grev');
+        setData(filteredData);
       })
       .catch((error) => {
-        console.error("There was an error fetching the data!", error)
-      })
-  }
+        console.error('There was an error fetching the data!', error);
+      });
+  };
 
   const hendleStatus = (status) => {
-    setModal(false)
+    setModal(false);
     axios
       .put(`http://127.0.0.1:5000/cards/changeStatus/${changeId}`, {
         status: status,
       })
       .then(() => {
-        fetchData()
+        fetchData();
       })
       .catch((error) => {
-        console.error("Error updating data:", error)
-      })
-  }
+        console.error('Error updating data:', error);
+      });
+  };
 
   const hendleDelete = (id) => {
     axios
       .delete(`http://127.0.0.1:5000/cards/delete/${id}`)
-      .then( () => fetchData())
-      .catch((error) => {
-        console.error("Error deleting data:", error)
+      .then(() => {
+        fetchData();
       })
-  }
+      .catch((error) => {
+        console.error('Error deleting data:', error);
+      });
+  };
 
   function addSpacesEveryFourChars(input) {
     return input.replace(/(.{4})/g, '$1 ');
   }
 
+  const filteredData = data.filter((row) =>
+    Object.values(row).some(
+      (value) =>
+        typeof value === 'string' &&
+        value.toLowerCase().includes(searchText.toLowerCase())
+    )
+  );
 
   return (
     <div className="wrapper">
-
       {modal && (
         <div className="modal">
           <div className="modal__wrapper">
             <div
               className="modal__elem grev"
-              onClick={() => hendleStatus("grev")}
+              onClick={() => hendleStatus('grev')}
             >
               grev
             </div>
             <div
               className="modal__elem work"
-              onClick={() => hendleStatus("work")}
+              onClick={() => hendleStatus('work')}
             >
               work
             </div>
             <div
               className="modal__elem block"
-              onClick={() => hendleStatus("block")}
+              onClick={() => hendleStatus('block')}
             >
               block
             </div>
             <div
               className="modal__elem dead"
-              onClick={() => hendleStatus("dead")}
+              onClick={() => hendleStatus('dead')}
             >
               dead
             </div>
@@ -116,7 +129,7 @@ function Grev() {
             <div
               className="closeModal"
               onClick={() => {
-                setInfoModal(false)
+                setInfoModal(false);
               }}
             >
               X
@@ -130,8 +143,8 @@ function Grev() {
             <button
               className="changeInfoButton"
               onClick={() => {
-                updateCardInfo()
-                setInfoModal(false)
+                updateCardInfo();
+                setInfoModal(false);
               }}
             >
               Обновить информацию
@@ -140,10 +153,18 @@ function Grev() {
         </div>
       )}
 
-      <h1>Карт в греве: {data.length}</h1>
-      <div className="card__wrapper">
+      <h1>Карт в греве: {filteredData.length}</h1>
 
-        {data.map((row) => (
+      <input
+        type="text"
+        className="search-input"
+        placeholder="Поиск..."
+        value={searchText}
+        onChange={handleSearchChange}
+      />
+
+      <div className="card__wrapper">
+        {filteredData.map((row) => (
           <div key={row.id} className="card">
             <div className="card__header">
               <div className="card__id">
@@ -178,10 +199,10 @@ function Grev() {
             </div>
             <div>
               <div className="card__buttons">
-                <div className={"card__status "}>
+                <div className={'card__status '}>
                   <button
                     onClick={() => {
-                      openModal(row.id)
+                      openModal(row.id);
                     }}
                     className={row.status}
                   >
@@ -191,7 +212,7 @@ function Grev() {
                 <div className="card__delete">
                   <button
                     onClick={() => {
-                      hendleDelete(row.id)
+                      hendleDelete(row.id);
                     }}
                   >
                     Удалить карту
@@ -201,8 +222,8 @@ function Grev() {
               <div className="card__info">
                 <button
                   onClick={() => {
-                    setInfoModal(true)
-                    setChangesId(row.id)
+                    setInfoModal(true);
+                    setChangesId(row.id);
                   }}
                 >
                   Изменить информацию
@@ -213,7 +234,7 @@ function Grev() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default Grev
+export default Grev;
