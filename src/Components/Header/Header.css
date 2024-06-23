@@ -1,0 +1,40 @@
+/* Общие стили для страницы */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5;
+}
+
+/* Стили для header */
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.header__elem {
+  margin: 0 10px;
+}
+
+.header__elem a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.header__elem a:hover {
+  color: #66afe9;
+}
+
+/* Стили для активного элемента меню */
+.header__elem a.active {
+  font-weight: bold;
+  color: #4CAF50;
+}

@@ -1,0 +1,210 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.card__inner {
+  margin-bottom: 10px;
+}
+
+.card__elem {
+  margin-bottom: 10px;
+}
+
+.card__elem-title {
+  font-weight: bold;
+  color: #333;
+}
+
+.card__elem-info {
+  display: block;
+  margin-top: 5px;
+  color: #666;
+}
+
+.card__buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card__buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card__buttons .card__status button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.card__buttons .card__status button:hover {
+  background-color: #45a049;
+}
+
+.card__buttons .card__delete button {
+  background-color: #f44336;
+  color: white;
+}
+
+.card__buttons .card__delete button:hover {
+  background-color: #e53935;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__wrapper {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal__elem {
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.modal__elem:hover {
+  background-color: #f0f2f5;
+}
+
+.modal__elem.grev {
+  background-color: #f4b400;
+}
+
+.modal__elem.work {
+  background-color: #4285f4;
+}
+
+.modal__elem.block {
+  background-color: #db4437;
+}
+
+.modal__elem.dead {
+  background-color: #0f9d58;
+}
+
+.modal__elem:hover.grev {
+  background-color: #e4a700;
+}
+
+.modal__elem:hover.work {
+  background-color: #357ae8;
+}
+
+.modal__elem:hover.block {
+  background-color: #c33d2e;
+}
+
+.modal__elem:hover.dead {
+  background-color: #0a8d50;
+}
+
+
+.grev{
+  background-color: orange !important;
+  color: white;
+}
+
+.dead{
+  background-color: black !important;
+  color: white;
+}
+
+.work {
+  background-color: green !important;
+  color: white;
+}
+
+.block{
+  background-color: red !important;
+  color: white;
+}
+
+.card_number{
+  font-weight: bold;
+}
+
+.card__info{
+  margin-top: 10px;
+}
+
+.card__info button{
+  width: 100%;
+  height: 35px;
+  background-color: #ff97e2;
+  border: 0;
+  border-radius: 6px;
+  color: white
+}
+
+.closeModal{
+  font-size: 24px;
+  height: 20px;
+  width: 20px;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+button{
+  cursor: pointer;
+}
+
+.changeInfoButton{
+  width: 100%;
+  height: 35px;
+  background-color: #ff97e2;
+  border: 0;
+  border-radius: 6px;
+  color: white
+}
