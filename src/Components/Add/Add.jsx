@@ -21,7 +21,7 @@ const Add = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Предотвращение перезагрузки страницы
-    axios.post('http://127.0.0.1:5000/cards/create', formData)
+    axios.post('http://81.200.149.251:5000/cards/create', formData)
       .then(response => {
         setFormData({
           number: '',

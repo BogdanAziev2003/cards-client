@@ -21,7 +21,7 @@ function Block() {
 
   const updateCardInfo = () => {
     axios
-      .put(`http://127.0.0.1:5000/cards/changeInfo/${changeId}`, {
+      .put(`http://81.200.149.251:5000/cards/changeInfo/${changeId}`, {
         info: textArea,
       })
       .then(() => {
@@ -43,7 +43,7 @@ function Block() {
 
   const fetchData = () => {
     axios
-      .get('http://127.0.0.1:5000/cards/getAll')
+      .get('http://81.200.149.251:5000/cards/getAll')
       .then((response) => {
         let filtredData = response.data.filter((row) => row.status === 'block');
         setData(filtredData);
@@ -57,7 +57,7 @@ function Block() {
   const hendleStatus = (status) => {
     setModal(false);
     axios
-      .put(`http://127.0.0.1:5000/cards/changeStatus/${changeId}`, {
+      .put(`http://81.200.149.251:5000/cards/changeStatus/${changeId}`, {
         status: status,
       })
       .then(() => {
@@ -70,7 +70,7 @@ function Block() {
 
   const hendleDelete = (id) => {
     axios
-      .delete(`http://127.0.0.1:5000/cards/delete/${id}`)
+      .delete(`http://81.200.149.251:5000/cards/delete/${id}`)
       .then(() => fetchData())
       .catch((error) => {
         console.error('Error deleting data:', error);
@@ -168,70 +168,70 @@ function Block() {
       <div className="card__wrapper">
         {filteredData.map((row) => (
           <div key={row.id} className="card">
-            <div className="card__header">
-              <div className="card__id">
-                <span>№ {row.id}</span>
+              <div className="card__header">
+                <div className="card__id">
+                  <span>№ {row.id}</span>
+                </div>
+                <div className="card_number">
+                  <span>{addSpacesEveryFourChars(row.number)}</span>
+                </div>
               </div>
-              <div className="card_number">
-                <span>{addSpacesEveryFourChars(row.number)}</span>
-              </div>
-            </div>
 
-            <div className="card__inner">
-              <div className="card__owner card__elem">
-                <span className="card__elem-title">Владелец:</span>
-                <span className="card__elem-info">{row.owner}</span>
+              <div className="card__inner">
+                <div className="card__owner card__elem">
+                  <span className="card__elem-title">Владелец:</span>
+                  <span className="card__elem-info">{row.owner}</span>
+                </div>
+                <div className="card__broughter card__elem">
+                  <span className="card__elem-title">Дроповод:</span>
+                  <span className="card__elem-info">{row.broughter}</span>
+                </div>
+                <div className="card__phone card__elem">
+                  <span className="card__elem-title">Телефон:</span>
+                  <span className="card__elem-info">{row.phone}</span>
+                </div>
+                <div className="card__buy-time card__elem">
+                  <span className="card__elem-title">Дата:</span>
+                  <span className="card__elem-info">{row.buy_time}</span>
+                </div>
+                <div className="card__info-block card__elem">
+                  <span className="card__elem-info">{row.info}</span>
+                </div>
               </div>
-              <div className="card__broughter card__elem">
-                <span className="card__elem-title">Дроповод:</span>
-                <span className="card__elem-info">{row.broughter}</span>
-              </div>
-              <div className="card__phone card__elem">
-                <span className="card__elem-title">Телефон:</span>
-                <span className="card__elem-info">{row.phone}</span>
-              </div>
-              <div className="card__buy-time card__elem">
-                <span className="card__elem-title">Дата:</span>
-                <span className="card__elem-info">{row.buy_time}</span>
-              </div>
-              <div className="card__info-block card__elem">
-                <span className="card__elem-title">Доп. инфо:</span>
-                <span className="card__elem-info">{row.info}</span>
-              </div>
-            </div>
-            <div>
               <div className="card__buttons">
-                <div className={'card__status '}>
-                  <button
-                    onClick={() => {
-                      openModal(row.id);
-                    }}
-                    className={row.status}
-                  >
-                    Изменить статус
-                  </button>
+                <div className="card__buttons-wrapper">
+                  <div className={"card__status "}>
+                    <button
+                      onClick={() => {
+                        openModal(row.id)
+                      }}
+                      className={row.status}
+                    >
+                      Изменить статус
+                    </button>
+                  </div>
+
+                  <div className="card__info">
+                    <button
+                      onClick={() => {
+                        setInfoModal(true)
+                        setChangesId(row.id)
+                      }}
+                    >
+                      Изменить инфу
+                    </button>
+                  </div>
                 </div>
                 <div className="card__delete">
                   <button
                     onClick={() => {
-                      hendleDelete(row.id);
+                      hendleDelete(row.id)
                     }}
                   >
                     Удалить карту
                   </button>
                 </div>
               </div>
-              <div className="card__info">
-                <button
-                  onClick={() => {
-                    setInfoModal(true);
-                    setChangesId(row.id);
-                  }}
-                >
-                  Изменить информацию
-                </button>
-              </div>
-            </div>
           </div>
         ))}
       </div>

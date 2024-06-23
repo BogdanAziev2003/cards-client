@@ -1,38 +1,79 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
+  background-color: #2e2e2f !important;
   margin: 0;
   padding: 0;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
+/* Общие стили для wrapper */
 .wrapper {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 20px;
+  color: #fff;
+  background-color: #222;
 }
 
+/* Стили для заголовка */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Стили для инпута поиска */
+.search-input {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.search-input:focus {
+  border-color: #555;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Стили для карточек */
 .card__wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   gap: 20px;
 }
 
 .card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #333;
+  border: 1px solid #444;
+  width: 400px;
   padding: 20px;
-  width: 300px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+}
+
+
+.card__outer > *{
+  border: 1px solid white;
 }
 
 .card__header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+  height: 20px;
+}
+
+.card__id,
+.card_number {
+  font-weight: bold;
 }
 
 .card__inner {
@@ -40,172 +81,174 @@ body {
 }
 
 .card__elem {
+  display: flex;
   margin-bottom: 10px;
+  gap: 10px;
 }
 
 .card__elem-title {
   font-weight: bold;
-  color: #333;
+  width: 100px;
+  text-align: left;
+  margin-right: 5px;
+  /* border: 1px solid white; */
 }
 
-.card__elem-info {
-  display: block;
-  margin-top: 5px;
-  color: #666;
+.card__info-block {
+  margin-top: 30px;
+  text-align: left;
 }
 
 .card__buttons {
+  flex-grow: 1;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: end;
+}
+
+.card__buttons-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.card__buttons-wrapper * {
+  flex: 1;
 }
 
 .card__buttons button {
-  padding: 10px 20px;
+  width: 100%;
+  height: 35px;
+}
+
+.card__buttons * {
+  /* border: 1px solid white; */
+}
+
+button {
+  background-color: #555;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
+  padding: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.card__buttons .card__status button {
-  background-color: #4caf50;
-  color: white;
+button:hover {
+  background-color: #666;
 }
 
-.card__buttons .card__status button:hover {
-  background-color: #45a049;
+button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-.card__buttons .card__delete button {
-  background-color: #f44336;
-  color: white;
-}
-
-.card__buttons .card__delete button:hover {
-  background-color: #e53935;
-}
-
+/* Стили для модальных окон */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .modal__wrapper {
-  background: #fff;
+  background-color: #333;
   padding: 20px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  border-radius: 8px;
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .modal__elem {
   padding: 10px;
-  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #444;
+  border-radius: 4px;
   cursor: pointer;
   text-align: center;
-  transition: background-color 0.3s ease;
 }
 
 .modal__elem:hover {
-  background-color: #f0f2f5;
-}
-
-.modal__elem.grev {
-  background-color: #f4b400;
-}
-
-.modal__elem.work {
-  background-color: #4285f4;
-}
-
-.modal__elem.block {
-  background-color: #db4437;
-}
-
-.modal__elem.dead {
-  background-color: #0f9d58;
-}
-
-.modal__elem:hover.grev {
-  background-color: #e4a700;
-}
-
-.modal__elem:hover.work {
-  background-color: #357ae8;
-}
-
-.modal__elem:hover.block {
-  background-color: #c33d2e;
-}
-
-.modal__elem:hover.dead {
-  background-color: #0a8d50;
-}
-
-.grev {
-  background-color: orange !important;
-  color: white;
-}
-
-.dead {
-  background-color: black !important;
-  color: white;
-}
-
-.work {
-  background-color: green !important;
-  color: white;
-}
-
-.block {
-  background-color: red !important;
-  color: white;
-}
-
-.card_number {
-  font-weight: bold;
-}
-
-.card__info {
-  margin-top: 10px;
-}
-
-.card__info button {
-  width: 100%;
-  height: 35px;
-  background-color: #ff97e2;
-  border: 0;
-  border-radius: 6px;
-  color: white;
+  background-color: #555;
 }
 
 .closeModal {
-  font-size: 24px;
-  height: 20px;
-  width: 20px;
-  margin-left: auto;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
+  color: #fff;
 }
 
-button {
-  cursor: pointer;
+textarea {
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
 .changeInfoButton {
   width: 100%;
-  height: 35px;
-  background-color: #ff97e2;
-  border: 0;
-  border-radius: 6px;
-  color: white;
+  background-color: #555;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.changeInfoButton:hover {
+  background-color: #666;
+}
+
+.changeInfoButton:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Стили для статусов */
+.grev,
+.work,
+.block,
+.dead {
+  border-radius: 4px;
+  padding: 5px 10px;
+  color: #fff;
+}
+
+.grev {
+  background-color: #f28109;
+}
+
+.work {
+  background-color: #0efc71;
+}
+
+.block {
+  background-color: #ff0000;
+}
+
+.dead {
+  background-color: #000000;
+}
+
+.card__status button.grev:hover,
+.card__status button.work:hover,
+.card__status button.block:hover,
+.card__status button.dead:hover {
+  opacity: 0.8;
 }
 
 .search-input {
@@ -217,9 +260,42 @@ button {
   border-radius: 5px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+/* Общие стили для инпута */
+.search-input {
+  background-color: #333; /* Темный фон */
+  color: #fff; /* Белый текст */
+  border: 1px solid #444; /* Темная граница */
+  border-radius: 4px; /* Скругленные углы */
+  padding: 10px; /* Внутренние отступы */
+  width: 100%; /* Ширина */
+  box-sizing: border-box; /* Учитывать границы и отступы в ширине */
+  font-size: 16px; /* Размер шрифта */
+}
 
-.search-input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+/* Стили для инпута при фокусе */
+input:focus {
+  border-color: #555; /* Изменение цвета границы */
+  outline: none; /* Убрать стандартное выделение */
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Тень при фокусе */
+}
+
+/* Стили для инпута при ошибке */
+input.error {
+  border-color: #e74c3c; /* Красная граница */
+}
+
+input.error:focus {
+  box-shadow: 0 0 5px rgba(231, 76, 60, 0.5); /* Красная тень при фокусе */
+}
+
+/* Стили для плейсхолдера */
+input::placeholder {
+  color: #bbb; /* Светло-серый цвет текста плейсхолдера */
+  opacity: 1; /* Полная непрозрачность */
+}
+
+h1 {
+  color: white;
+  text-align: left;
+  font-size: 24px;
 }

@@ -1,35 +1,74 @@
+/* Общие стили для формы */
 .styled-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 400px;
-  margin: 0 auto;
+  background-color: #222; /* Темный фон */
   padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin-top: 20px;
 }
 
-.form-input, .form-textarea, .form-button {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+/* Стили для текстовых полей ввода */
+.form-input {
+  background-color: #333; /* Темный фон */
+  color: #fff; /* Белый текст */
+  border: 1px solid #444; /* Темная граница */
+  border-radius: 4px; /* Скругленные углы */
+  padding: 10px; /* Внутренние отступы */
+  width: 100%; /* Ширина */
+  box-sizing: border-box; /* Учитывать границы и отступы в ширине */
+  font-size: 16px; /* Размер шрифта */
+  margin-bottom: 15px; /* Отступ снизу */
 }
 
-.form-input, .form-textarea {
-  width: 100%;
-  box-sizing: border-box;
+/* Стили для текстовой области */
+.form-textarea {
+  background-color: #333; /* Темный фон */
+  color: #fff; /* Белый текст */
+  border: 1px solid #444; /* Темная граница */
+  border-radius: 4px; /* Скругленные углы */
+  padding: 10px; /* Внутренние отступы */
+  width: 100%; /* Ширина */
+  box-sizing: border-box; /* Учитывать границы и отступы в ширине */
+  font-size: 16px; /* Размер шрифта */
+  margin-bottom: 15px; /* Отступ снизу */
+  resize: vertical; /* Разрешить изменение размера только по вертикали */
 }
 
+/* Стили для кнопки отправки */
 .form-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  background-color: #555; /* Темный фон */
+  color: #fff; /* Белый текст */
+  border: none; /* Убрать границу */
+  border-radius: 4px; /* Скругленные углы */
+  padding: 10px 20px; /* Внутренние отступы */
+  font-size: 16px; /* Размер шрифта */
+  cursor: pointer; /* Указатель при наведении */
+  width: 100%; /* Ширина */
+  box-sizing: border-box; /* Учитывать границы и отступы в ширине */
 }
 
+/* Стили для кнопки при наведении */
 .form-button:hover {
-  background-color: #45a049;
+  background-color: #666; /* Изменение фона при наведении */
+}
+
+/* Стили для кнопки при фокусе */
+.form-button:focus {
+  outline: none; /* Убрать стандартное выделение */
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Тень при фокусе */
+}
+
+/* Стили для полей ввода при фокусе */
+.form-input:focus, .form-textarea:focus {
+  border-color: #555; /* Изменение цвета границы */
+  outline: none; /* Убрать стандартное выделение */
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Тень при фокусе */
+}
+
+/* Стили для плейсхолдера */
+.form-input::placeholder, .form-textarea::placeholder {
+  color: #bbb; /* Светло-серый цвет текста плейсхолдера */
+  opacity: 1; /* Полная непрозрачность */
 }
