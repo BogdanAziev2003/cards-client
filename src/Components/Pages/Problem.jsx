@@ -2,16 +2,22 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import StatusModal from "../StatusModal"
 
-function Work() {
+function Problem() {
   const [data, setData] = useState([])
   const [modal, setModal] = useState(false)
   const [infoModal, setInfoModal] = useState(false)
   const [changeId, setChangesId] = useState(null)
   const [textArea, setTextArea] = useState("")
+  const [searchText, setSearchText] = useState("")
 
   const handleChange = (e) => {
     const { value } = e.target
     setTextArea(value)
+  }
+
+  const handleSearchChange = (e) => {
+    const { value } = e.target
+    setSearchText(value)
   }
 
   const updateCardInfo = () => {
@@ -40,7 +46,9 @@ function Work() {
     axios
       .get("http://81.200.149.251:5000/cards/getAll")
       .then((response) => {
-        let filtredData = response.data.filter((row) => row.status === "work")
+        let filtredData = response.data.filter(
+          (row) => row.status === "problem"
+        )
         setData(filtredData)
         console.log(filtredData)
       })
@@ -48,6 +56,7 @@ function Work() {
         console.error("There was an error fetching the data!", error)
       })
   }
+
 
   const hendleDelete = (id) => {
     axios
@@ -61,6 +70,19 @@ function Work() {
   function addSpacesEveryFourChars(input) {
     return input.replace(/(.{4})/g, "$1 ")
   }
+
+  const filteredData = data.filter((row) => {
+    const searchString = searchText.toLowerCase()
+    return (
+      row.id.toString().includes(searchString) ||
+      row.number.toLowerCase().includes(searchString) ||
+      row.owner.toLowerCase().includes(searchString) ||
+      row.broughter.toLowerCase().includes(searchString) ||
+      row.phone.toLowerCase().includes(searchString) ||
+      row.buy_time.toLowerCase().includes(searchString) ||
+      row.info.toLowerCase().includes(searchString)
+    )
+  })
 
   return (
     <div className="wrapper">
@@ -102,9 +124,16 @@ function Work() {
         </div>
       )}
 
-      <h1>Карт в работе: {data.length}</h1>
+      <h1>Всего карт: {filteredData.length}</h1>
+      <input
+        type="text"
+        placeholder="Поиск..."
+        value={searchText}
+        onChange={handleSearchChange}
+        className="search-input"
+      />
       <div className="card__wrapper">
-        {data.map((row) => (
+        {filteredData.map((row) => (
           <div key={row.id} className="card">
             <div className="card__header">
               <div className="card__id">
@@ -177,4 +206,4 @@ function Work() {
   )
 }
 
-export default Work
+export default Problem

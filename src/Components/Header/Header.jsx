@@ -60,6 +60,15 @@ function Header() {
         <div className="header__elem">
           <Link
             onClick={() => setBurger(false)}
+            to="/problem"
+            className={location.pathname === "/problem" ? "active" : ""}
+          >
+            Проблемные
+          </Link>
+        </div>
+        <div className="header__elem">
+          <Link
+            onClick={() => setBurger(false)}
             to="/dead"
             className={location.pathname === "/dead" ? "active" : ""}
           >

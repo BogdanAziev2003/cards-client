@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import StatusModal from "../StatusModal"
 
 function Grev() {
   const [data, setData] = useState([])
@@ -53,19 +54,6 @@ function Grev() {
       })
   }
 
-  const hendleStatus = (status) => {
-    setModal(false)
-    axios
-      .put(`http://81.200.149.251:5000/cards/changeStatus/${changeId}`, {
-        status: status,
-      })
-      .then(() => {
-        fetchData()
-      })
-      .catch((error) => {
-        console.error("Error updating data:", error)
-      })
-  }
 
   const hendleDelete = (id) => {
     axios
@@ -93,34 +81,11 @@ function Grev() {
   return (
     <div className="wrapper">
       {modal && (
-        <div className="modal">
-          <div className="modal__wrapper">
-            <div
-              className="modal__elem grev"
-              onClick={() => hendleStatus("grev")}
-            >
-              grev
-            </div>
-            <div
-              className="modal__elem work"
-              onClick={() => hendleStatus("work")}
-            >
-              work
-            </div>
-            <div
-              className="modal__elem block"
-              onClick={() => hendleStatus("block")}
-            >
-              block
-            </div>
-            <div
-              className="modal__elem dead"
-              onClick={() => hendleStatus("dead")}
-            >
-              dead
-            </div>
-          </div>
-        </div>
+        <StatusModal
+          id={changeId}
+          closeModal={() => setModal(false)}
+          fetchData={fetchData}
+        />
       )}
 
       {infoModal && (

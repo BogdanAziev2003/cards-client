@@ -240,6 +240,10 @@ textarea {
   background-color: #ff0000;
 }
 
+.problem {
+  background-color: #01bdde;
+}
+
 .dead {
   background-color: #000000;
 }
